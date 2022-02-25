@@ -7,8 +7,8 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 ENV LANG C.UTF-8
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN npm update && \
+    npm install -y --no-install-recommends \
         ca-certificates \
         curl \
         dirmngr \
@@ -33,7 +33,7 @@ RUN apt-get update && \
         xz-utils \
     && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb \
     && echo 'ea8277df4297afc507c61122f3c349af142f31e5 wkhtmltox.deb' | sha1sum -c - \
-    && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
+    && npm install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
@@ -45,8 +45,8 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /et
     && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
-    && apt-get update  \
-    && apt-get install --no-install-recommends -y postgresql-client \
+    && npm update  \
+    && npm install --no-install-recommends -y postgresql-client \
     && rm -f /etc/apt/sources.list.d/pgdg.list \
     && rm -rf /var/lib/apt/lists/*
 
@@ -59,8 +59,8 @@ ARG ODOO_RELEASE=20220225
 ARG ODOO_SHA=81a0f480b3f9835000cba40e99bf874d9462effe
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
-    && apt-get update \
-    && apt-get -y install --no-install-recommends ./odoo.deb \
+    && npm update \
+    && npm -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
