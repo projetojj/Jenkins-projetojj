@@ -1,0 +1,34 @@
+# Passos para a configuracao do git e versionamento do codigo
+# Criar uma conta em github.com
+    ssh-keygen -t rsa -b 4096 -C "exemplo@econocom.com.br"
+    cat ~/.ssh/id_rsa.pub
+# Configurar a chave no github
+    git config --global user.name "NAME_PROJETO"
+    git config --global user.email exemplo@econocom.com.br
+    ssh -T git@github.com
+# Fazer download do código nos anexos e copiar para o diretório compartilhado app
+    cd $caminho_da_pasta
+    git init
+    git add .
+    git commit -m "Meu primeiro commit"
+    git log
+# Criar um repositório no github: jenkins-todo-list
+    git remote add origin git@github.com:<seu-usuario>/REPOSITORIO_GIT.git
+    git push -u origin master
+
+# Configurando a chave privada criada no ambiente da VM no Jenkins
+    cat ~/.ssh/id_rsa
+    Credentials -> Jenkins -> Global Credentials -> Add Crendentials -> SSH Username with private key [ github-ssh ]
+# Criando o primeiro  job que vai monitorar o repositorio
+    Novo job -> EXEMPLO_PROJETO -> Freestyle project:
+    Esse job vai fazer o build do projeto e registrar a imagem no repositório.
+    # Gerenciamento de código fonte:
+        Git: git@github.com:exemplo/exemplo.git [SSH]
+        Credentials: git (github-ssh)
+        Branch: master
+    # Trigger de builds
+        Pool SCM: * * * * *
+    # Ambiente de build
+        Delete workspace before build starts
+    # Salvar
+    # Validar o log em: Git Log de consulta periódica

@@ -1,0 +1,11 @@
+# Criar app no slack: exemplo.slack.com
+    URL básico: <Url do Jenkins app no seu canal do Slack>
+    Token de integração: <Token do Jenkins app no seu canal do Slack>
+
+# Instalar o plugin do slack: Gerenciar Jenkins > Gerenciar Plugins > Disponíveis: Slack Notification
+        # Configurar no jenkins: Gerenciar Jenkins > Configuraçao o sistema > Global Slack Notifier Settings
+            # Slack compatible app URL (optional): <Url do Jenkins app no seu canal do Slack>
+            # Integration Token Credential ID : ADD > Jenkins > Secret Text
+                # Secret: <Token do Jenkins app no seu canal do Slack>
+                # ID: slack-token
+            # Channel or Slack ID: EXEMPLO_CANAL

@@ -1,0 +1,28 @@
+sudo mkdir -p /etc/systemd/system/docker.service.d/
+sudo vi /etc/systemd/system/docker.service.d/override.conf
+
+#adicionar no arquivo
+
+        [Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker.service
+
+#Sugested Plugins
+Instalando os plugins
+Gerenciar Jenkins -> Gerenciar Plugins -> Disponíveis
+  # docker
+Install without restart -> Depois reiniciar o jenkins
+Gerenciar Jenkins -> Configurar o sistema -> Nuvem
+   # Name: docker
+   # URI: tcp://127.0.0.1:2376
+   # Enabled
+   # This project is parameterized: 
+DOCKER_HOST
+tcp://127.0.0.1:2376
+ # Voltar no job criado na aula anterior
+ # Manter a mesma configuracao do GIT para desenvolvimento
+ # Build step 1: Executar Shell
+	
